@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert, } from "react-native";
-import { useState } from 'react'
+import { useState } from 'react';
+import MyButton from "../components/Button";
 
 
 function LoginScreen() {
@@ -15,52 +16,87 @@ function LoginScreen() {
 
     return (
         
-        <View>
-            <Image style={styles.image}/>
+        <View style={styles.containerLog}>
             
-            <Text>
+            <Text style={styles.title}>
                 Увійти
             </Text>
 
-            <View>
+            <View style={styles.inputRegBox}>
                 
-                <TextInput style={styles.input}
+                <TextInput style={styles.inputLog}
                     placeholder='Адреса електронної пошти'
                     value={mail}
                     onChangeText={mailHandler} />
                 
-                <TextInput style={styles.input}
+                <TextInput style={styles.inputLog}
                     placeholder='Пароль'
                     value={password}
+                    secureTextEntry={true}
                     onChangeText={passwordHandler} />
                 
-                <Button
+                <MyButton
                     title='Увійти'
                     onPress={onLogin}
                 />
             </View>
             
-            
-            
-            <Text>Немає облікового запису? Зареєструватись</Text>
+            <Text style={styles.bottomText}>
+                Немає облікового запису? Зареєструватись
+            </Text>
         </View>
     )
 };
 
 const styles = StyleSheet.create({
-
-    image: {
-        borderWidth: 1,        
-        borderColor: "#61dafb",
-        width: 50,
-        height: 50
+    containerLog: {
+        alignSelf: "stretch",
+        // width: 100%,
+        // height: 549,
+        // flex: 1,
+        // marginHorizontal: 16,
+        paddingHorizontal: 16,
+        paddingTop: 32,
+        paddingBottom: 144,
+        backgroundColor: "#ffffff",
     },
-    input: {
-        borderWidth: 1,
-        
-        borderColor: "#61dafb",
-    }
 
+    title: {
+        marginBottom: 32,
+        // font-family: 'Roboto';
+        // font-weight: 500;
+        fontSize: 30,
+        lineHeight: 35,
+        textAlign: 'center',
+        letterSpacing: 0.01,
+        color: '#212121',
+    },
+
+    inputLog: {
+        flexDirection:'row' ,
+        height: 50,
+        padding: 16,
+        marginBottom: 16,
+        // font-family: 'Roboto';
+        fontSize: 16,
+        lineHeight: 19,
+        backgroundColor: '#F6F6F6',
+        borderWidth: 1,        
+        borderColor: "#E8E8E8",
+        borderRadius: 8,
+        color: '#BDBDBD',
+    },
+
+    bottomText: {
+        marginTop: 16,
+        // font-family: 'Roboto';
+        // font-style: normal;
+        // font-weight: 400;
+        fontSize: 16,
+        lineHeight: 19,
+        textAlign: 'center',
+        color: '#1B4371',
+    },
 });
 
 export default LoginScreen;
