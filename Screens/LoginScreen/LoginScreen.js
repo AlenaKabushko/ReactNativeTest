@@ -7,10 +7,10 @@ import {
     Keyboard,
     TouchableWithoutFeedback
 } from "react-native";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import MyButton from "../components/Button";
+import { MyButton } from "../components/Button";
 
 const initState = {
     mail: '',
@@ -26,8 +26,19 @@ const initState = {
 
 function LoginScreen() {
 
+    const kBHide = () => {
+        
+        Keyboard.dismiss();
+        console.log(formData);
+    }
+
     const [formData, setFormData] = useState(initState);
     const [iasReady, setIasReady] = useState(false);
+    const [isFocusMail, setIsFocusMail] = useState(false)
+    const [isFocusPassword, setIsFocusPassword] = useState(false)
+
+
+    }
 
     // if (!iasReady) {
     // return (
@@ -40,7 +51,7 @@ function LoginScreen() {
     // }
     
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <TouchableWithoutFeedback onPress={kBHide}>
         <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerLog}>
@@ -51,20 +62,30 @@ function LoginScreen() {
 
             <View style={styles.inputRegBox}>
                 
-                <TextInput style={styles.inputLog}
-                    placeholder='Адреса електронної пошти'
+                <TextInput style={[styles.inputLog, isFocusMail && styles.inputFocusMail]}
+                    
+                            placeholder='Адреса електронної пошти'
+                            placeholderTextColor={'#BDBDBD'}
+                            value={formData.mail}
+                            onFocus={() => {setIsFocusMail(true)}}
+                            onBlur={() => {setIsFocusMail(false)}}
                     onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, mail: value }))} />
                 
-                <TextInput style={styles.inputLog}
+                <TextInput style={[styles.inputLog, isFocusPassword && styles.inputFocusPassword]}
+                    
                     placeholder='Пароль'
+                            placeholderTextColor={'#BDBDBD'}
+                            value={formData.password}
                     secureTextEntry={true}
+                            onFocus={() => {setIsFocusPassword(true)}}
+                            onBlur={() => {setIsFocusPassword(false)}}
                     onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, password: value }))} />
                 
                 <MyButton
                     title='Увійти'
-                    onPress={() => Keyboard.dismiss()}
+                    onPress={kBHide}
                 />
             </View>
             
@@ -88,7 +109,7 @@ const styles = StyleSheet.create({
 
     title: {
         marginBottom: 32,
-        fontFamily: 'Roboto-Medium',
+        // fontFamily: 'Roboto-Medium',
         fontSize: 30,
         lineHeight: 35,
         textAlign: 'center',
@@ -101,19 +122,27 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 16,
         marginBottom: 16,
-        fontFamily: 'Roboto-Regular',
+        // fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         backgroundColor: '#F6F6F6',
         borderWidth: 1,        
         borderColor: "#E8E8E8",
         borderRadius: 8,
-        color: '#BDBDBD',
+        color: '#212121',
+    },
+
+    inputFocusMail: {
+        borderColor: "#FF6C00",
+    },
+
+    inputFocusPassword: {
+        borderColor: "#FF6C00",
     },
 
     bottomText: {
         marginTop: 16,
-        fontFamily: 'Roboto-Regular',
+        // fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         textAlign: 'center',

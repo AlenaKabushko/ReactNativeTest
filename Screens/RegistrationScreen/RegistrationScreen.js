@@ -10,7 +10,8 @@ import {
     TouchableWithoutFeedback
 } from "react-native";
 import { useState } from 'react'
-import MyButton from "../components/Button";
+import { MyButton, AddPhotoButton } from "../components/Button";
+
 
 const initState = {
     login: '',
@@ -21,20 +22,24 @@ const initState = {
 function RegistrationScreen() {
     //const [isShowKB, setIsShowKB] = useState(false);
     const [formData, setFormData] = useState(initState)
+    const [isFocusMail, setIsFocusMail] = useState(false)
+    const [isFocusPassword, setIsFocusPassword] = useState(false)
+    const [isFocusLogin, setIsFocusLogin] = useState(false)
 
-    // const kBHide = () => {
-    //     // setIsShowKB = false;
-    //     Keyboard.dismiss();
-    //     setFormData(initState);
-    // }
+    const kBHide = () => {
+        
+        Keyboard.dismiss();
+        console.log(formData);
+    }
 
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <TouchableWithoutFeedback onPress={kBHide}>
         <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerReg}>
             
-            <Image style={styles.photo}/>
+                    <Image style={styles.photo} />
+                    <AddPhotoButton onPress={Keyboard.dismiss()}/>
             
             <Text style={styles.title}>
                 Реєстрація
@@ -44,25 +49,34 @@ function RegistrationScreen() {
                     {/* style={{ marginBottom: isShowKB ? 32 : 0 }}
                     style={{...styles.containerReg, marginBottom: isShowKB ? 0 : 100}} */}
                     <View >
-                        <TextInput style={styles.inputReg}
-                            placeholder='Логін'
-                            value={formData.login}
+                        <TextInput style={[styles.inputReg, isFocusLogin && styles.inputFocusLogin]}
+                                placeholder='Логін'
+                                placeholderTextColor={'#BDBDBD'}
+                                value={formData.login}
+                                onFocus={() => {setIsFocusLogin(true)}}
+                            onBlur={() => {setIsFocusLogin(false)}}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, login: value }))} 
                             // onFocus={()=>setIsShowKB(true)}
                             />
             
-                        <TextInput style={styles.inputReg}
+                        <TextInput style={[styles.inputReg, isFocusMail && styles.inputFocusMail]}
                             placeholder='Адреса електронної пошти'
-                            value={formData.mail}
+                            placeholderTextColor={'#BDBDBD'}
+                                value={formData.mail}
+                                onFocus={() => {setIsFocusMail(true)}}
+                            onBlur={() => {setIsFocusMail(false)}}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, mail: value }))} 
                             // onFocus={()=>setIsShowKB(true)}
                             />
                         
-                        <TextInput style={styles.inputReg}
-                            placeholder='Пароль'
-                            value={formData.password}
+                        <TextInput style={[styles.inputReg, isFocusPassword && styles.inputFocusPassword]}
+                                placeholder='Пароль'
+                                placeholderTextColor={'#BDBDBD'}
+                                value={formData.password}
+                                onFocus={() => {setIsFocusPassword(true)}}
+                            onBlur={() => {setIsFocusPassword(false)}}
                             secureTextEntry={true}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, password: value }))} 
@@ -74,7 +88,7 @@ function RegistrationScreen() {
                 
                 <MyButton
                     title='Зареєструватись'
-                    onPress={() => Keyboard.dismiss()}
+                    onPress={kBHide}
                 />
                 </View>
                 
@@ -91,10 +105,6 @@ function RegistrationScreen() {
 const styles = StyleSheet.create({
     containerReg: {
         alignSelf: "stretch",
-        // width: 100%,
-        // height: 549,
-        // flex: 1,
-        // marginHorizontal: 16,
         paddingHorizontal: 16,
         paddingTop: 92,
         paddingBottom: 78,
@@ -135,6 +145,18 @@ const styles = StyleSheet.create({
         borderColor: "#E8E8E8",
         borderRadius: 8,
         color: '#BDBDBD',
+    },
+
+    inputFocusLogin: {
+        borderColor: "#FF6C00",
+    },
+
+    inputFocusMail: {
+        borderColor: "#FF6C00",
+    },
+
+    inputFocusPassword: {
+        borderColor: "#FF6C00",
     },
 
     bottomText: {

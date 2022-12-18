@@ -5,7 +5,7 @@ import LoginScreen from './Screens/LoginScreen/LoginScreen';
 import { useState } from 'react';
 
 export default function App() {
-  
+  const [isReg, setIsReg] = useState(false)
   return (
     <View style={styles.container}>
       {/* <StatusBar style="auto" /> */}
@@ -14,10 +14,8 @@ export default function App() {
         resizeMode="cover"
         style={styles.bgImage}>
         
-        {/* <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}> */}
-          {/* <RegistrationScreen /> */}
-        <LoginScreen/>
-        {/* </KeyboardAvoidingView> */}
+        {isReg ? <LoginScreen onPress={() => setIsReg(true)} /> : <RegistrationScreen />}
+        
         
       </ImageBackground>
       
