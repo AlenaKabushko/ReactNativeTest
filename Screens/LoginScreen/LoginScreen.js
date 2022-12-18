@@ -1,21 +1,48 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert, } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
+} from "react-native";
 import { useState } from 'react';
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
 import MyButton from "../components/Button";
 
+const initState = {
+    mail: '',
+    password: '',
+}
+
+// const loadApplication = async () => {
+//   await Font.loadAsync({
+//       "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+//       "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+//   });
+// };
 
 function LoginScreen() {
 
-    const [mail, setMail] = useState("");
-    const [password, setPassword] = useState("");
-    const mailHandler = (text) => setMail(text);
-    const passwordHandler = (text) => setPassword(text);
+    const [formData, setFormData] = useState(initState);
+    const [iasReady, setIasReady] = useState(false);
 
-    const onLogin = () => {
-        Alert.alert("Привіт", `${mail} + ${password}`);
-    };
-
+    // if (!iasReady) {
+    // return (
+    //   <AppLoading
+    //     startAsync={loadApplication}
+    //     onFinish={() => setIasReady(true)}
+    //     onError={console.warn}
+    //   />
+    // );
+    // }
+    
     return (
-        
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerLog}>
             
             <Text style={styles.title}>
@@ -26,35 +53,33 @@ function LoginScreen() {
                 
                 <TextInput style={styles.inputLog}
                     placeholder='Адреса електронної пошти'
-                    value={mail}
-                    onChangeText={mailHandler} />
+                    onChangeText={(value) =>
+                                setFormData((prevState) => ({ ...prevState, mail: value }))} />
                 
                 <TextInput style={styles.inputLog}
                     placeholder='Пароль'
-                    value={password}
                     secureTextEntry={true}
-                    onChangeText={passwordHandler} />
+                    onChangeText={(value) =>
+                                setFormData((prevState) => ({ ...prevState, password: value }))} />
                 
                 <MyButton
                     title='Увійти'
-                    onPress={onLogin}
+                    onPress={() => Keyboard.dismiss()}
                 />
             </View>
             
             <Text style={styles.bottomText}>
                 Немає облікового запису? Зареєструватись
             </Text>
-        </View>
+                </View>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
     )
 };
 
 const styles = StyleSheet.create({
     containerLog: {
         alignSelf: "stretch",
-        // width: 100%,
-        // height: 549,
-        // flex: 1,
-        // marginHorizontal: 16,
         paddingHorizontal: 16,
         paddingTop: 32,
         paddingBottom: 144,
@@ -63,8 +88,7 @@ const styles = StyleSheet.create({
 
     title: {
         marginBottom: 32,
-        // font-family: 'Roboto';
-        // font-weight: 500;
+        fontFamily: 'Roboto-Medium',
         fontSize: 30,
         lineHeight: 35,
         textAlign: 'center',
@@ -77,7 +101,7 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 16,
         marginBottom: 16,
-        // font-family: 'Roboto';
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         backgroundColor: '#F6F6F6',
@@ -89,9 +113,7 @@ const styles = StyleSheet.create({
 
     bottomText: {
         marginTop: 16,
-        // font-family: 'Roboto';
-        // font-style: normal;
-        // font-weight: 400;
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         textAlign: 'center',

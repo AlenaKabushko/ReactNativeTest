@@ -15,8 +15,8 @@ export default function App() {
         style={styles.bgImage}>
         
         {/* <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}> */}
-          <RegistrationScreen />
-        {/* <LoginScreen/> */}
+          {/* <RegistrationScreen /> */}
+        <LoginScreen/>
         {/* </KeyboardAvoidingView> */}
         
       </ImageBackground>

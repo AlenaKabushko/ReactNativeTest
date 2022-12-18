@@ -1,4 +1,14 @@
-import { StyleSheet, Text, View, Image, TextInput, Alert, Platform, KeyboardAvoidingView } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput, 
+    Platform,
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
+} from "react-native";
 import { useState } from 'react'
 import MyButton from "../components/Button";
 
@@ -9,20 +19,19 @@ const initState = {
 }
 
 function RegistrationScreen() {
-    const [isShowKB, setIsShowKB] = useState(false);
+    //const [isShowKB, setIsShowKB] = useState(false);
     const [formData, setFormData] = useState(initState)
 
-    const kBHide = () => {
-        setIsShowKB = false;
-        setFormData(initState);
-    }
-
-    const onLogin = () => {
-        Alert.alert("Успіх", `${formData.login}, ${formData.mail}, ${formData.password}`);
-    };
+    // const kBHide = () => {
+    //     // setIsShowKB = false;
+    //     Keyboard.dismiss();
+    //     setFormData(initState);
+    // }
 
     return (
-        
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerReg}>
             
             <Image style={styles.photo}/>
@@ -30,27 +39,26 @@ function RegistrationScreen() {
             <Text style={styles.title}>
                 Реєстрація
             </Text>
-
             
-
             <View>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                    
-                    <View>
+                    {/* style={{ marginBottom: isShowKB ? 32 : 0 }}
+                    style={{...styles.containerReg, marginBottom: isShowKB ? 0 : 100}} */}
+                    <View >
                         <TextInput style={styles.inputReg}
                             placeholder='Логін'
                             value={formData.login}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, login: value }))} 
-                            onFocus={()=>setIsShowKB(true)}/>
+                            // onFocus={()=>setIsShowKB(true)}
+                            />
             
                         <TextInput style={styles.inputReg}
                             placeholder='Адреса електронної пошти'
                             value={formData.mail}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, mail: value }))} 
-                            onFocus={()=>setIsShowKB(true)}/>
+                            // onFocus={()=>setIsShowKB(true)}
+                            />
                         
                         <TextInput style={styles.inputReg}
                             placeholder='Пароль'
@@ -58,14 +66,15 @@ function RegistrationScreen() {
                             secureTextEntry={true}
                             onChangeText={(value) =>
                                 setFormData((prevState) => ({ ...prevState, password: value }))} 
-                            onFocus={()=>setIsShowKB(true)}/>
+                            // onFocus={()=>setIsShowKB(true)}
+                            />
                     </View>
                     
-                </KeyboardAvoidingView>
+                
                 
                 <MyButton
                     title='Зареєструватись'
-                    onPress={onLogin}
+                    onPress={() => Keyboard.dismiss()}
                 />
                 </View>
                 
@@ -74,6 +83,8 @@ function RegistrationScreen() {
                 Вже є обліковий запис? Увійти
             </Text>
         </View>
+            </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
     )
 };
 
@@ -110,11 +121,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0.01,
         color: '#212121',
     },
-
-    // inputRegBox: {
-    //     // flex: 1,
-    //     gap: 16,
-    // },
 
     inputReg: {
         flexDirection:'row' ,
