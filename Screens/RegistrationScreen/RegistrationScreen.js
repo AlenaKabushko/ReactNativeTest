@@ -3,102 +3,129 @@ import {
     Text,
     View,
     Image,
-    TextInput, 
+    TextInput,
+    Alert,
     Platform,
     KeyboardAvoidingView,
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TouchableOpacity
 } from "react-native";
-import { useState } from 'react'
-import { MyButton, AddPhotoButton } from "../components/Button";
+import { useState } from 'react';
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import { MyButton } from "../components/Button";
 
 
 const initState = {
     login: '',
     mail: '',
     password: '',
-}
+};
+
+const loadApplication = async () => {
+    await Font.loadAsync({
+        "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+        "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+    });
+};
 
 function RegistrationScreen() {
-    //const [isShowKB, setIsShowKB] = useState(false);
-    const [formData, setFormData] = useState(initState)
-    const [isFocusMail, setIsFocusMail] = useState(false)
-    const [isFocusPassword, setIsFocusPassword] = useState(false)
-    const [isFocusLogin, setIsFocusLogin] = useState(false)
+    const [formData, setFormData] = useState(initState);
+    const [iasReady, setIasReady] = useState(false);
+    const [isFocusMail, setIsFocusMail] = useState(false);
+    const [isFocusPassword, setIsFocusPassword] = useState(false);
+    const [isFocusLogin, setIsFocusLogin] = useState(false);
+
+    const onLogin = () => {
+    Alert.alert(`Add photo, please`);
+  };
 
     const kBHide = () => {
-        
         Keyboard.dismiss();
         console.log(formData);
+    };
+
+    if (!iasReady) {
+    return (
+      <AppLoading
+        startAsync={loadApplication}
+        onFinish={() => setIasReady(true)}
+        onError={console.warn}
+      />
+    );
     }
 
     return (
         <TouchableWithoutFeedback onPress={kBHide}>
+
         <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+
         <View style={styles.containerReg}>
             
                     <Image style={styles.photo} />
-                    <AddPhotoButton onPress={Keyboard.dismiss()}/>
+                    
+                    <TouchableOpacity
+                        style={styles.btnAdd}
+                        onPress={onLogin}
+                        activeOpacity={0.7}
+                    >
+                        <Image source={require('../../img/addPhoto.png')} style={styles.btnAddText} />
+                    </TouchableOpacity>
             
             <Text style={styles.title}>
                 Реєстрація
             </Text>
             
             <View>
-                    {/* style={{ marginBottom: isShowKB ? 32 : 0 }}
-                    style={{...styles.containerReg, marginBottom: isShowKB ? 0 : 100}} */}
-                    <View >
-                        <TextInput style={[styles.inputReg, isFocusLogin && styles.inputFocusLogin]}
-                                placeholder='Логін'
-                                placeholderTextColor={'#BDBDBD'}
-                                value={formData.login}
-                                onFocus={() => {setIsFocusLogin(true)}}
-                            onBlur={() => {setIsFocusLogin(false)}}
-                            onChangeText={(value) =>
-                                setFormData((prevState) => ({ ...prevState, login: value }))} 
-                            // onFocus={()=>setIsShowKB(true)}
-                            />
+                <View >
+                    <TextInput style={[styles.inputReg, isFocusLogin && styles.inputFocusLogin]}
+                        placeholder='Логін'
+                        placeholderTextColor={'#BDBDBD'}
+                        value={formData.login}
+                        onFocus={() => {setIsFocusLogin(true)}}
+                        onBlur={() => {setIsFocusLogin(false)}}
+                        onChangeText={(value) =>
+                        setFormData((prevState) => ({ ...prevState, login: value }))} 
+                    />
             
-                        <TextInput style={[styles.inputReg, isFocusMail && styles.inputFocusMail]}
-                            placeholder='Адреса електронної пошти'
-                            placeholderTextColor={'#BDBDBD'}
-                                value={formData.mail}
-                                onFocus={() => {setIsFocusMail(true)}}
-                            onBlur={() => {setIsFocusMail(false)}}
-                            onChangeText={(value) =>
-                                setFormData((prevState) => ({ ...prevState, mail: value }))} 
-                            // onFocus={()=>setIsShowKB(true)}
-                            />
-                        
-                        <TextInput style={[styles.inputReg, isFocusPassword && styles.inputFocusPassword]}
-                                placeholder='Пароль'
-                                placeholderTextColor={'#BDBDBD'}
-                                value={formData.password}
-                                onFocus={() => {setIsFocusPassword(true)}}
-                            onBlur={() => {setIsFocusPassword(false)}}
-                            secureTextEntry={true}
-                            onChangeText={(value) =>
-                                setFormData((prevState) => ({ ...prevState, password: value }))} 
-                            // onFocus={()=>setIsShowKB(true)}
-                            />
-                    </View>
+                    <TextInput style={[styles.inputReg, isFocusMail && styles.inputFocusMail]}
+                        placeholder='Адреса електронної пошти'
+                        placeholderTextColor={'#BDBDBD'}
+                        value={formData.mail}
+                        onFocus={() => {setIsFocusMail(true)}}
+                        onBlur={() => {setIsFocusMail(false)}}
+                        onChangeText={(value) =>
+                        setFormData((prevState) => ({ ...prevState, mail: value }))} 
+                    />
                     
-                
+                    <TextInput style={[styles.inputReg, isFocusPassword && styles.inputFocusPassword]}
+                        placeholder='Пароль'
+                        placeholderTextColor={'#BDBDBD'}
+                        value={formData.password}
+                        onFocus={() => {setIsFocusPassword(true)}}
+                        onBlur={() => {setIsFocusPassword(false)}}
+                        secureTextEntry={true}
+                        onChangeText={(value) =>
+                        setFormData((prevState) => ({ ...prevState, password: value }))} 
+                    />
+                </View>
                 
                 <MyButton
                     title='Зареєструватись'
                     onPress={kBHide}
                 />
-                </View>
-                
+            </View>
             
             <Text style={styles.bottomText}>
                 Вже є обліковий запис? Увійти
             </Text>
+            
         </View>
-            </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     )
 };
 
@@ -121,10 +148,34 @@ const styles = StyleSheet.create({
         height: 120,
     },
 
+    btnAdd: {
+    zIndex:3,
+    position: "absolute",
+    left: 233,
+    top: 25,
+    width: 25,
+    height: 25,
+    borderColor: '#FF6C00',
+    borderWidth: 1,
+    borderRadius: 50,
+    textAlign: 'center'
+    },
+
+     btnAddText:
+  {
+    position: "absolute",
+    left: 5,
+    top: 5,
+    width: 13,
+    height: 13,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#FF6C00'
+  },
+    
     title: {
         marginBottom: 32,
-        // font-family: 'Roboto';
-        // font-weight: 500;
+        fontFamily: 'Roboto-Medium',
         fontSize: 30,
         lineHeight: 35,
         textAlign: 'center',
@@ -137,7 +188,7 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 16,
         marginBottom: 16,
-        // font-family: 'Roboto';
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         backgroundColor: '#F6F6F6',
@@ -161,9 +212,7 @@ const styles = StyleSheet.create({
 
     bottomText: {
         marginTop: 16,
-        // font-family: 'Roboto';
-        // font-style: normal;
-        // font-weight: 400;
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         textAlign: 'center',

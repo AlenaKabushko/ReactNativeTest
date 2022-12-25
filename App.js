@@ -5,7 +5,7 @@ import LoginScreen from './Screens/LoginScreen/LoginScreen';
 import { useState } from 'react';
 
 export default function App() {
-  const [isReg, setIsReg] = useState(false)
+  
   return (
     <View style={styles.container}>
       {/* <StatusBar style="auto" /> */}
@@ -14,12 +14,10 @@ export default function App() {
         resizeMode="cover"
         style={styles.bgImage}>
         
-        {isReg ? <LoginScreen onPress={() => setIsReg(true)} /> : <RegistrationScreen />}
-        
+        {/* <LoginScreen /> */}
+        <RegistrationScreen />        
         
       </ImageBackground>
-      
-      
     </View>
   );
 }
@@ -28,12 +26,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // justifyContent:'flex-end'
   },
 
   bgImage: {
     flex: 1,
     justifyContent: "flex-end",
-    },
-  
+    },  
 });

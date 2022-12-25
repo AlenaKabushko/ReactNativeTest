@@ -7,53 +7,49 @@ import {
     Keyboard,
     TouchableWithoutFeedback
 } from "react-native";
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import * as Font from "expo-font";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import { MyButton } from "../components/Button";
 
 const initState = {
     mail: '',
     password: '',
-}
+};
 
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//       "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-//       "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-//   });
-// };
+const loadApplication = async () => {
+    await Font.loadAsync({
+        "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+        "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+    });
+};
 
 function LoginScreen() {
 
     const kBHide = () => {
-        
         Keyboard.dismiss();
         console.log(formData);
-    }
+    };
 
     const [formData, setFormData] = useState(initState);
     const [iasReady, setIasReady] = useState(false);
-    const [isFocusMail, setIsFocusMail] = useState(false)
-    const [isFocusPassword, setIsFocusPassword] = useState(false)
+    const [isFocusMail, setIsFocusMail] = useState(false);
+    const [isFocusPassword, setIsFocusPassword] = useState(false);
 
-
+    if (!iasReady) {
+    return (
+      <AppLoading
+        startAsync={loadApplication}
+        onFinish={() => setIasReady(true)}
+        onError={console.warn}
+      />
+    );
     }
-
-    // if (!iasReady) {
-    // return (
-    //   <AppLoading
-    //     startAsync={loadApplication}
-    //     onFinish={() => setIasReady(true)}
-    //     onError={console.warn}
-    //   />
-    // );
-    // }
     
     return (
         <TouchableWithoutFeedback onPress={kBHide}>
         <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerLog}>
             
             <Text style={styles.title}>
@@ -61,27 +57,24 @@ function LoginScreen() {
             </Text>
 
             <View style={styles.inputRegBox}>
-                
                 <TextInput style={[styles.inputLog, isFocusMail && styles.inputFocusMail]}
-                    
-                            placeholder='Адреса електронної пошти'
-                            placeholderTextColor={'#BDBDBD'}
-                            value={formData.mail}
-                            onFocus={() => {setIsFocusMail(true)}}
-                            onBlur={() => {setIsFocusMail(false)}}
+                    placeholder='Адреса електронної пошти'
+                    placeholderTextColor={'#BDBDBD'}
+                    value={formData.mail}
+                    onFocus={() => {setIsFocusMail(true)}}
+                    onBlur={() => {setIsFocusMail(false)}}
                     onChangeText={(value) =>
-                                setFormData((prevState) => ({ ...prevState, mail: value }))} />
+                    setFormData((prevState) => ({ ...prevState, mail: value }))} />
                 
                 <TextInput style={[styles.inputLog, isFocusPassword && styles.inputFocusPassword]}
-                    
                     placeholder='Пароль'
-                            placeholderTextColor={'#BDBDBD'}
-                            value={formData.password}
+                    placeholderTextColor={'#BDBDBD'}
+                    value={formData.password}
                     secureTextEntry={true}
-                            onFocus={() => {setIsFocusPassword(true)}}
-                            onBlur={() => {setIsFocusPassword(false)}}
+                    onFocus={() => {setIsFocusPassword(true)}}
+                    onBlur={() => {setIsFocusPassword(false)}}
                     onChangeText={(value) =>
-                                setFormData((prevState) => ({ ...prevState, password: value }))} />
+                    setFormData((prevState) => ({ ...prevState, password: value }))} />
                 
                 <MyButton
                     title='Увійти'
@@ -109,7 +102,7 @@ const styles = StyleSheet.create({
 
     title: {
         marginBottom: 32,
-        // fontFamily: 'Roboto-Medium',
+        fontFamily: 'Roboto-Medium',
         fontSize: 30,
         lineHeight: 35,
         textAlign: 'center',
@@ -122,7 +115,7 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 16,
         marginBottom: 16,
-        // fontFamily: 'Roboto-Regular',
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         backgroundColor: '#F6F6F6',
@@ -142,7 +135,7 @@ const styles = StyleSheet.create({
 
     bottomText: {
         marginTop: 16,
-        // fontFamily: 'Roboto-Regular',
+        fontFamily: 'Roboto-Regular',
         fontSize: 16,
         lineHeight: 19,
         textAlign: 'center',

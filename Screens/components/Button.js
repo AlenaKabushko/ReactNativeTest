@@ -12,18 +12,6 @@ export function MyButton (props) {
   );
 };
 
-export function AddPhotoButton (props) {
-    const { onPress } = props;
-  return (
-      <TouchableOpacity
-          style={styles.btnAdd}
-          onPress={onPress}
-          activeOpacity={0.7}>
-      <Text style={styles.btnAddText}>+</Text>
-    </TouchableOpacity>
-  );
-};
-
 const styles = StyleSheet.create({
     btn: {
         marginTop: 46,
@@ -35,9 +23,6 @@ const styles = StyleSheet.create({
     },
 
     btnText: {
-        // font-family: 'Roboto';
-        // font-style: normal;
-        // font-weight: 400;
         fontSize: 16,
         lineHeight: 19,
         color: '#FFFFFF',
@@ -60,6 +45,3 @@ const styles = StyleSheet.create({
         fontSize: 18,        
     }
 })
-
-// export default MyButton;
-// export default AddPhotoButton;
