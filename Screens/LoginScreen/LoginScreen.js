@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { MyButton } from "../components/Button";
+import { MyButton } from "../../components/Button";
 
 const initState = {
     mail: '',

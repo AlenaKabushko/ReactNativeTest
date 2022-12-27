@@ -11,10 +11,10 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity
 } from "react-native";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import { MyButton } from "../components/Button";
+import * as SplashScreen from 'expo-splash-screen';
+import { MyButton } from "../../components/Button";
 
 
 const initState = {
@@ -23,37 +23,44 @@ const initState = {
     password: '',
 };
 
-const loadApplication = async () => {
-    await Font.loadAsync({
-        "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-        "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-    });
-};
-
 function RegistrationScreen() {
     const [formData, setFormData] = useState(initState);
-    const [iasReady, setIasReady] = useState(false);
+    const [appIsReady, setAppIsReady] = useState(false);
     const [isFocusMail, setIsFocusMail] = useState(false);
     const [isFocusPassword, setIsFocusPassword] = useState(false);
     const [isFocusLogin, setIsFocusLogin] = useState(false);
 
-    const onLogin = () => {
-    Alert.alert(`Add photo, please`);
-  };
+    const onAddBtnClk = () => {
+        Alert.alert(`Add photo, please`);
+    };
 
     const kBHide = () => {
         Keyboard.dismiss();
         console.log(formData);
     };
 
-    if (!iasReady) {
-    return (
-      <AppLoading
-        startAsync={loadApplication}
-        onFinish={() => setIasReady(true)}
-        onError={console.warn}
-      />
-    );
+    useEffect(() =>
+    { 
+        async function prepare() {
+            try {
+                await Font.loadAsync({
+                "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+                "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+            })
+            } catch (e) {
+                console.warn(e)
+            } finally {
+                setAppIsReady(true)
+            }
+        }
+
+        prepare()
+    }, [])
+
+    if (!appIsReady) {
+        return undefined
+    } else {
+        SplashScreen.hideAsync()
     }
 
     return (
@@ -69,7 +76,7 @@ function RegistrationScreen() {
                     
                     <TouchableOpacity
                         style={styles.btnAdd}
-                        onPress={onLogin}
+                        onPress={onAddBtnClk}
                         activeOpacity={0.7}
                     >
                         <Image source={require('../../img/addPhoto.png')} style={styles.btnAddText} />
