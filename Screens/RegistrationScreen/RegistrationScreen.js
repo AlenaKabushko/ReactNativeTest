@@ -23,7 +23,7 @@ const initState = {
     password: '',
 };
 
-function RegistrationScreen() {
+function RegistrationScreen({ navigation }) {
     const [formData, setFormData] = useState(initState);
     const [appIsReady, setAppIsReady] = useState(false);
     const [isFocusMail, setIsFocusMail] = useState(false);
@@ -32,13 +32,13 @@ function RegistrationScreen() {
 
     const onAddBtnClk = () => {
         Alert.alert(`Add photo, please`);
-    };
+    }
 
     const kBHide = () => {
         Keyboard.dismiss();
-        console.log(formData);
-    };
-
+        setFormData(initState)
+    }
+    
     useEffect(() =>
     { 
         async function prepare() {
@@ -53,7 +53,6 @@ function RegistrationScreen() {
                 setAppIsReady(true)
             }
         }
-
         prepare()
     }, [])
 
@@ -126,7 +125,7 @@ function RegistrationScreen() {
                 />
             </View>
             
-            <Text style={styles.bottomText}>
+            <Text style={styles.bottomText} onPress={() => navigation.navigate("LoginScreen")}>
                 Вже є обліковий запис? Увійти
             </Text>
             
@@ -202,7 +201,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,        
         borderColor: "#E8E8E8",
         borderRadius: 8,
-        color: '#BDBDBD',
+        color: '#212121',
     },
 
     inputFocusLogin: {

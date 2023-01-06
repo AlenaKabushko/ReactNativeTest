@@ -7,9 +7,9 @@ import {
     Keyboard,
     TouchableWithoutFeedback
 } from "react-native";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from 'expo-splash-screen';
 import { MyButton } from "../../components/Button";
 
 const initState = {
@@ -17,33 +17,38 @@ const initState = {
     password: '',
 };
 
-const loadApplication = async () => {
-    await Font.loadAsync({
-        "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-        "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-    });
-};
-
-function LoginScreen() {
-
-    const kBHide = () => {
-        Keyboard.dismiss();
-        console.log(formData);
-    };
-
+function LoginScreen({ navigation }) {
     const [formData, setFormData] = useState(initState);
-    const [iasReady, setIasReady] = useState(false);
+    const [appIsReady, setAppIsReady] = useState(false);
     const [isFocusMail, setIsFocusMail] = useState(false);
     const [isFocusPassword, setIsFocusPassword] = useState(false);
 
-    if (!iasReady) {
-    return (
-      <AppLoading
-        startAsync={loadApplication}
-        onFinish={() => setIasReady(true)}
-        onError={console.warn}
-      />
-    );
+    const kBHide = () => {
+        Keyboard.dismiss();
+        setFormData(initState)
+    }
+    
+    useEffect(() =>
+    { 
+        async function prepare() {
+            try {
+                await Font.loadAsync({
+                "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+                "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+            })
+            } catch (e) {
+                console.warn(e)
+            } finally {
+                setAppIsReady(true)
+            }
+        }
+        prepare()
+    }, [])
+
+    if (!appIsReady) {
+        return undefined
+    } else {
+        SplashScreen.hideAsync()
     }
     
     return (
@@ -82,7 +87,7 @@ function LoginScreen() {
                 />
             </View>
             
-            <Text style={styles.bottomText}>
+            <Text style={styles.bottomText} onPress={() => navigation.navigate("RegistrationScreen")}>
                 Немає облікового запису? Зареєструватись
             </Text>
                 </View>
