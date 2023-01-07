@@ -11,9 +11,7 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity
 } from "react-native";
-import { useEffect, useState } from 'react';
-import * as Font from "expo-font";
-import * as SplashScreen from 'expo-splash-screen';
+import { useState } from 'react';
 import { MyButton } from "../../components/Button";
 
 
@@ -25,7 +23,6 @@ const initState = {
 
 function RegistrationScreen({ navigation }) {
     const [formData, setFormData] = useState(initState);
-    const [appIsReady, setAppIsReady] = useState(false);
     const [isFocusMail, setIsFocusMail] = useState(false);
     const [isFocusPassword, setIsFocusPassword] = useState(false);
     const [isFocusLogin, setIsFocusLogin] = useState(false);
@@ -34,36 +31,13 @@ function RegistrationScreen({ navigation }) {
         Alert.alert(`Add photo, please`);
     }
 
-    const kBHide = () => {
-        Keyboard.dismiss();
-        setFormData(initState)
-    }
-    
-    useEffect(() =>
-    { 
-        async function prepare() {
-            try {
-                await Font.loadAsync({
-                "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-                "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-            })
-            } catch (e) {
-                console.warn(e)
-            } finally {
-                setAppIsReady(true)
-            }
-        }
-        prepare()
-    }, [])
-
-    if (!appIsReady) {
-        return undefined
-    } else {
-        SplashScreen.hideAsync()
+    const onBtnClick = () => {
+        navigation.navigate("Home")
+        setFormData(initState); 
     }
 
     return (
-        <TouchableWithoutFeedback onPress={kBHide}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
 
         <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -121,7 +95,7 @@ function RegistrationScreen({ navigation }) {
                 
                 <MyButton
                     title='Зареєструватись'
-                    onPress={kBHide}
+                    onPress={onBtnClick}
                 />
             </View>
             
@@ -167,8 +141,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
     },
 
-     btnAddText:
-  {
+    btnAddText:  {
     position: "absolute",
     left: 5,
     top: 5,
@@ -177,7 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     color: '#FF6C00'
-  },
+    },
     
     title: {
         marginBottom: 32,

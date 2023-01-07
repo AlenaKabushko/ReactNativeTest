@@ -8,8 +8,6 @@ import {
     TouchableWithoutFeedback
 } from "react-native";
 import { useState, useEffect } from 'react';
-import * as Font from "expo-font";
-import * as SplashScreen from 'expo-splash-screen';
 import { MyButton } from "../../components/Button";
 
 const initState = {
@@ -19,40 +17,16 @@ const initState = {
 
 function LoginScreen({ navigation }) {
     const [formData, setFormData] = useState(initState);
-    const [appIsReady, setAppIsReady] = useState(false);
     const [isFocusMail, setIsFocusMail] = useState(false);
     const [isFocusPassword, setIsFocusPassword] = useState(false);
 
-    const kBHide = () => {
-        Keyboard.dismiss();
-        setFormData(initState)
+    const onBtnClick = () => {
+        navigation.navigate("Home")
+        setFormData(initState); 
     }
-    
-    useEffect(() =>
-    { 
-        async function prepare() {
-            try {
-                await Font.loadAsync({
-                "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-                "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-            })
-            } catch (e) {
-                console.warn(e)
-            } finally {
-                setAppIsReady(true)
-            }
-        }
-        prepare()
-    }, [])
-
-    if (!appIsReady) {
-        return undefined
-    } else {
-        SplashScreen.hideAsync()
-    }
-    
+        
     return (
-        <TouchableWithoutFeedback onPress={kBHide}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.containerLog}>
@@ -83,7 +57,7 @@ function LoginScreen({ navigation }) {
                 
                 <MyButton
                     title='Увійти'
-                    onPress={kBHide}
+                    onPress={onBtnClick}
                 />
             </View>
             
