@@ -5,7 +5,8 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    ImageBackground
 } from "react-native";
 import { useState, useEffect } from 'react';
 import { MyButton } from "../../components/Button";
@@ -26,51 +27,67 @@ function LoginScreen({ navigation }) {
     }
         
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.containerLog}>
-            
-            <Text style={styles.title}>
-                Увійти
-            </Text>
+        <View style={styles.container}>
+            <ImageBackground
+                source={require('../../img/bg.jpg')}
+                resizeMode="cover"
+                style={styles.bgImage}> 
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                        <View style={styles.containerLog}>
+                            <Text style={styles.title}>
+                                Увійти
+                            </Text>
 
-            <View style={styles.inputRegBox}>
-                <TextInput style={[styles.inputLog, isFocusMail && styles.inputFocusMail]}
-                    placeholder='Адреса електронної пошти'
-                    placeholderTextColor={'#BDBDBD'}
-                    value={formData.mail}
-                    onFocus={() => {setIsFocusMail(true)}}
-                    onBlur={() => {setIsFocusMail(false)}}
-                    onChangeText={(value) =>
-                    setFormData((prevState) => ({ ...prevState, mail: value }))} />
-                
-                <TextInput style={[styles.inputLog, isFocusPassword && styles.inputFocusPassword]}
-                    placeholder='Пароль'
-                    placeholderTextColor={'#BDBDBD'}
-                    value={formData.password}
-                    secureTextEntry={true}
-                    onFocus={() => {setIsFocusPassword(true)}}
-                    onBlur={() => {setIsFocusPassword(false)}}
-                    onChangeText={(value) =>
-                    setFormData((prevState) => ({ ...prevState, password: value }))} />
-                
-                <MyButton
-                    title='Увійти'
-                    onPress={onBtnClick}
-                />
-            </View>
+                            <View style={styles.inputRegBox}>
+                                <TextInput style={[styles.inputLog, isFocusMail && styles.inputFocusMail]}
+                                    placeholder='Адреса електронної пошти'
+                                    placeholderTextColor={'#BDBDBD'}
+                                    value={formData.mail}
+                                    onFocus={() => {setIsFocusMail(true)}}
+                                    onBlur={() => {setIsFocusMail(false)}}
+                                    onChangeText={(value) =>
+                                    setFormData((prevState) => ({ ...prevState, mail: value }))} />
+                                
+                                <TextInput style={[styles.inputLog, isFocusPassword && styles.inputFocusPassword]}
+                                    placeholder='Пароль'
+                                    placeholderTextColor={'#BDBDBD'}
+                                    value={formData.password}
+                                    secureTextEntry={true}
+                                    onFocus={() => {setIsFocusPassword(true)}}
+                                    onBlur={() => {setIsFocusPassword(false)}}
+                                    onChangeText={(value) =>
+                                    setFormData((prevState) => ({ ...prevState, password: value }))} />
+                                
+                                <MyButton
+                                    title='Увійти'
+                                    onPress={onBtnClick}
+                                />
+                            </View>
             
-            <Text style={styles.bottomText} onPress={() => navigation.navigate("RegistrationScreen")}>
-                Немає облікового запису? Зареєструватись
-            </Text>
-                </View>
+                        <Text style={styles.bottomText} onPress={() => navigation.navigate("RegistrationScreen")}>
+                            Немає облікового запису? Зареєструватись
+                        </Text>
+                    </View>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
+        </ImageBackground>
+    </View> 
     )
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        },
+
+    bgImage: {
+        flex: 1,
+        justifyContent: "flex-end",
+    }, 
+
     containerLog: {
         alignSelf: "stretch",
         paddingHorizontal: 16,

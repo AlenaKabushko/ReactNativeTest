@@ -41,36 +41,16 @@ export default function App() {
     }
   
   return (
-    <View style={styles.container}>
-        {/* <StatusBar style="auto" /> */}
-        
-        <ImageBackground
-          source={require('./img/bg.jpg')}
-          resizeMode="cover"
-        style={styles.bgImage}>
-        
-          <NavigationContainer>
-            <MainStack.Navigator initialRouteName="LoginScreen">
-              <MainStack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
+    <NavigationContainer>
+        <MainStack.Navigator initialRouteName="LoginScreen">
+            <MainStack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
             <MainStack.Screen name="LoginScreen" component={LoginScreen} />
             <MainStack.Screen name="Home" component={Home} />
-            </MainStack.Navigator>
-          </NavigationContainer>  
-
-         </ImageBackground>
-      </View>
-    
+        </MainStack.Navigator>
+    </NavigationContainer>  
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  bgImage: {
-    flex: 1,
-    justifyContent: "flex-end",
-    },  
+  
 });

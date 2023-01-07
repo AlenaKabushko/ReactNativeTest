@@ -9,11 +9,11 @@ import {
     KeyboardAvoidingView,
     Keyboard,
     TouchableWithoutFeedback,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground
 } from "react-native";
 import { useState } from 'react';
 import { MyButton } from "../../components/Button";
-
 
 const initState = {
     login: '',
@@ -28,88 +28,95 @@ function RegistrationScreen({ navigation }) {
     const [isFocusLogin, setIsFocusLogin] = useState(false);
 
     const onAddBtnClk = () => {
-        Alert.alert(`Add photo, please`);
+        Alert.alert(`Add photo, please`)
     }
 
     const onBtnClick = () => {
         navigation.navigate("Home")
-        setFormData(initState); 
+        setFormData(initState)
     }
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
-
-        <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-
-        <View style={styles.containerReg}>
-            
-                    <Image style={styles.photo} />
+    <View style={styles.container}>
+        <ImageBackground
+            source={require('../../img/bg.jpg')}
+            resizeMode="cover"
+            style={styles.bgImage}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                     
-                    <TouchableOpacity
-                        style={styles.btnAdd}
-                        onPress={onAddBtnClk}
-                        activeOpacity={0.7}
-                    >
-                        <Image source={require('../../img/addPhoto.png')} style={styles.btnAddText} />
-                    </TouchableOpacity>
+                    <View style={styles.containerReg}>
+                        <Image style={styles.photo} />
+                        <TouchableOpacity
+                            style={styles.btnAdd}
+                            onPress={onAddBtnClk}
+                            activeOpacity={0.7}>
+                            <Image source={require('../../img/addPhoto.png')}
+                                style={styles.btnAddText} />
+                        </TouchableOpacity>
+                        <Text style={styles.title}>
+                            Реєстрація
+                        </Text>
+                    <View>                        
+                        <View >
+                            <TextInput style={[styles.inputReg, isFocusLogin && styles.inputFocusLogin]}
+                                placeholder='Логін'
+                                placeholderTextColor={'#BDBDBD'}
+                                value={formData.login}
+                                onFocus={() => {setIsFocusLogin(true)}}
+                                onBlur={() => {setIsFocusLogin(false)}}
+                                onChangeText={(value) =>
+                                setFormData((prevState) => ({ ...prevState, login: value }))} 
+                            />
+                            <TextInput style={[styles.inputReg, isFocusMail && styles.inputFocusMail]}
+                                placeholder='Адреса електронної пошти'
+                                placeholderTextColor={'#BDBDBD'}
+                                value={formData.mail}
+                                onFocus={() => {setIsFocusMail(true)}}
+                                onBlur={() => {setIsFocusMail(false)}}
+                                onChangeText={(value) =>
+                                setFormData((prevState) => ({ ...prevState, mail: value }))} 
+                            />
+                            <TextInput style={[styles.inputReg, isFocusPassword && styles.inputFocusPassword]}
+                                placeholder='Пароль'
+                                placeholderTextColor={'#BDBDBD'}
+                                value={formData.password}
+                                onFocus={() => {setIsFocusPassword(true)}}
+                                onBlur={() => {setIsFocusPassword(false)}}
+                                secureTextEntry={true}
+                                onChangeText={(value) =>
+                                setFormData((prevState) => ({ ...prevState, password: value }))} 
+                            />
+                        </View>
             
-            <Text style={styles.title}>
-                Реєстрація
-            </Text>
-            
-            <View>
-                <View >
-                    <TextInput style={[styles.inputReg, isFocusLogin && styles.inputFocusLogin]}
-                        placeholder='Логін'
-                        placeholderTextColor={'#BDBDBD'}
-                        value={formData.login}
-                        onFocus={() => {setIsFocusLogin(true)}}
-                        onBlur={() => {setIsFocusLogin(false)}}
-                        onChangeText={(value) =>
-                        setFormData((prevState) => ({ ...prevState, login: value }))} 
-                    />
-            
-                    <TextInput style={[styles.inputReg, isFocusMail && styles.inputFocusMail]}
-                        placeholder='Адреса електронної пошти'
-                        placeholderTextColor={'#BDBDBD'}
-                        value={formData.mail}
-                        onFocus={() => {setIsFocusMail(true)}}
-                        onBlur={() => {setIsFocusMail(false)}}
-                        onChangeText={(value) =>
-                        setFormData((prevState) => ({ ...prevState, mail: value }))} 
-                    />
-                    
-                    <TextInput style={[styles.inputReg, isFocusPassword && styles.inputFocusPassword]}
-                        placeholder='Пароль'
-                        placeholderTextColor={'#BDBDBD'}
-                        value={formData.password}
-                        onFocus={() => {setIsFocusPassword(true)}}
-                        onBlur={() => {setIsFocusPassword(false)}}
-                        secureTextEntry={true}
-                        onChangeText={(value) =>
-                        setFormData((prevState) => ({ ...prevState, password: value }))} 
-                    />
-                </View>
-                
-                <MyButton
-                    title='Зареєструватись'
-                    onPress={onBtnClick}
-                />
+                        <MyButton
+                            title='Зареєструватись'
+                            onPress={onBtnClick}
+                        />
+                    </View>
+                <Text style={styles.bottomText} onPress={() => navigation.navigate("LoginScreen")}>
+                    Вже є обліковий запис? Увійти
+                </Text>
             </View>
-            
-            <Text style={styles.bottomText} onPress={() => navigation.navigate("LoginScreen")}>
-                Вже є обліковий запис? Увійти
-            </Text>
-            
-        </View>
-        </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+        </ImageBackground>
+    </View> 
     )
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+
+    bgImage: {
+        flex: 1,
+        justifyContent: "flex-end",
+    }, 
+    
     containerReg: {
         alignSelf: "stretch",
         paddingHorizontal: 16,
