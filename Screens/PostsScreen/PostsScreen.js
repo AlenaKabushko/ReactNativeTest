@@ -13,26 +13,65 @@ import {
 } from "react-native";
 
 function PostsScreen({ navigation }) {
-    
+    const onLogOutBtnClk = () => {
+        Alert.alert(`goodbye!`)
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Публикации</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>Публикации</Text>
             
+                <TouchableOpacity
+                    style={styles.btnLogOut}
+                    onPress={onLogOutBtnClk}
+                    activeOpacity={0.7}>
+                    
+                    <Image source={require('../../img/log-out.png')}
+                        style={styles.btnLogOutIcon} />
+                    
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.userBox}>
+                <Image source={require('../../img/User.png')}
+                    style={styles.userIcon} />
+                
+                <View style={styles.userTextBox}>
+                    <Text style={styles.userName}>Natali Romanova</Text>
+                    <Text style={styles.userMail}>email@example.com</Text>
+                </View>
+            
+            </View>
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignSelf: "stretch",
-        // paddingHorizontal: 16,
         paddingTop: 10,
         paddingBottom: 10,
+        paddingLeft: 16,
+        paddingRight: 10,
         backgroundColor: "#ffffff",
     },
 
+    titleContainer: {
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderColor: "rgba(0, 0, 0, 0.3)",
+    },
+
+    btnLogOut: {
+        position: "absolute",
+        right: 10,
+        top: 0,
+    },
+
     title: {
-        //marginBottom: 32,
         fontFamily: 'Roboto-Medium',
         fontSize: 17,
         lineHeight: 22,
@@ -41,37 +80,41 @@ const styles = StyleSheet.create({
         color: '#212121',
     },
 
-    // inputLog: {
-    //     flexDirection:'row' ,
-    //     height: 50,
-    //     padding: 16,
-    //     marginBottom: 16,
-    //     fontFamily: 'Roboto-Regular',
-    //     fontSize: 16,
-    //     lineHeight: 19,
-    //     backgroundColor: '#F6F6F6',
-    //     borderWidth: 1,        
-    //     borderColor: "#E8E8E8",
-    //     borderRadius: 8,
-    //     color: '#212121',
-    // },
+    btnLogOutIcon: {
+        width: 24,
+        height: 24,
+    },
 
-    // inputFocusMail: {
-    //     borderColor: "#FF6C00",
-    // },
+    userBox: {
+        // flex: 1,
+        flexDirection: 'row',
+        marginTop: 32,
+    },
 
-    // inputFocusPassword: {
-    //     borderColor: "#FF6C00",
-    // },
+    userIcon: {
+    
+    },
 
-    // bottomText: {
-    //     marginTop: 16,
-    //     fontFamily: 'Roboto-Regular',
-    //     fontSize: 16,
-    //     lineHeight: 19,
-    //     textAlign: 'center',
-    //     color: '#1B4371',
-    // },
+    userTextBox: {
+        flexDirection: 'column', 
+        marginLeft: 8,
+        justifyContent: "center",
+    },
+
+    userName: {
+        fontFamily: 'Roboto-Medium',
+        fontSize: 13,
+        lineHeight: 15,
+        color: '#212121',
+    },
+
+    userMail: {
+        fontFamily: 'Roboto-Regular',
+        fontSize: 11,
+        lineHeight: 13,
+        color: 'rgba(33, 33, 33, 0.8)',
+    },
+
 });
 
 export default PostsScreen;
