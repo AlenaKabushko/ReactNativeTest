@@ -2,14 +2,14 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export function MyButton (props) {
     const { onPress, title = 'Click' } = props;
-  return (
-      <TouchableOpacity
-          style={styles.btn}
-          onPress={onPress}
-          activeOpacity={0.7}>
-      <Text style={styles.btnText}>{title}</Text>
-    </TouchableOpacity>
-  );
+    return (
+        <TouchableOpacity
+            style={styles.btn}
+            onPress={onPress}
+            activeOpacity={0.7}>
+        <Text style={styles.btnText}>{title}</Text>
+        </TouchableOpacity>
+    );
 };
 
 const styles = StyleSheet.create({

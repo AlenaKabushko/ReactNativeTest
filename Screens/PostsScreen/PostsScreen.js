@@ -3,16 +3,11 @@ import {
     Text,
     View,
     Image,
-    TextInput,
     Alert,
-    Platform,
-    KeyboardAvoidingView,
-    Keyboard,
-    TouchableWithoutFeedback,
     TouchableOpacity
 } from "react-native";
 
-function PostsScreen({ navigation }) {
+function PostsScreen() {
     const onLogOutBtnClk = () => {
         Alert.alert(`Do something!`)
     }
@@ -20,16 +15,14 @@ function PostsScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>Публикации</Text>
+                <Text style={styles.title}>Публикації</Text>
             
                 <TouchableOpacity
                     style={styles.btnLogOut}
                     onPress={onLogOutBtnClk}
-                    activeOpacity={0.7}>
-                    
+                    activeOpacity={0.7}>                    
                     <Image source={require('../../img/log-out.png')}
-                        style={styles.btnLogOutIcon} />
-                    
+                        style={styles.btnLogOutIcon} />                    
                 </TouchableOpacity>
             </View>
 
@@ -43,39 +36,6 @@ function PostsScreen({ navigation }) {
                 </View>
             
             </View>
-
-            <View style={styles.toolbarBox}>
-                <TouchableOpacity
-                    style={styles.toolbar}
-                    onPress={onLogOutBtnClk}
-                    activeOpacity={0.7}>
-                    
-                    <Image source={require('../../img/grid.png')}
-                        style={styles.toolbarIcon} />
-                    
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.toolbar}
-                    onPress={onLogOutBtnClk}
-                    activeOpacity={0.7}>
-                    
-                    <Image source={require('../../img/new.png')}
-                        style={styles.toolbarIcon} />
-                    
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.toolbar}
-                    onPress={onLogOutBtnClk}
-                    activeOpacity={0.7}>
-                    
-                    <Image source={require('../../img/user.png')}
-                        style={styles.toolbarIconUser} />
-                    
-                </TouchableOpacity>
-            </View>
-
         </View>
     )
 }
@@ -118,7 +78,6 @@ const styles = StyleSheet.create({
     },
 
     userBox: {
-        // flex: 1,
         flexDirection: 'row',
         marginTop: 32,
     },
@@ -142,29 +101,6 @@ const styles = StyleSheet.create({
         lineHeight: 13,
         color: 'rgba(33, 33, 33, 0.8)',
     },
-
-    toolbarBox: {
-        position: "absolute",
-        left: 16,
-        bottom: 0,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center', 
-        paddingHorizontal: 60,
-        paddingTop: 9,
-        paddingBottom: 34,
-        borderTopWidth: 1,
-        borderColor: "rgba(0, 0, 0, 0.3)",
-    },
-
-    toolbarIcon: {
-        marginRight: 31,
-        
-    },
-
-    toolbarIconUser: {
-        marginRight: 0,
-    }
 
 });
 

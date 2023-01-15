@@ -14,8 +14,8 @@ import {
 } from "react-native";
 import { useEffect, useState } from 'react';
 
-function CommentsScreen({ navigation }) {
-    
-
-    return 
+function CommentsScreen() {
+    return (<View></View>)
 }
+
+export default CommentsScreen;

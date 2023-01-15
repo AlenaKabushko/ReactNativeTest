@@ -15,7 +15,8 @@ import {
 import { useEffect, useState } from 'react';
 
 
-function MapScreen({ navigation }) {
-   
-    return 
+function MapScreen() {
+    return (<View></View>)
 }
+
+export default MapScreen;

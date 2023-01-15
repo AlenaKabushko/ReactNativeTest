@@ -8,7 +8,7 @@ import {
     TouchableWithoutFeedback,
     ImageBackground
 } from "react-native";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MyButton } from "../../components/Button";
 
 const initState = {
