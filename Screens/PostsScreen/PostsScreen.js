@@ -14,7 +14,7 @@ import {
 
 function PostsScreen({ navigation }) {
     const onLogOutBtnClk = () => {
-        Alert.alert(`goodbye!`)
+        Alert.alert(`Do something!`)
     }
 
     return (
@@ -34,7 +34,7 @@ function PostsScreen({ navigation }) {
             </View>
 
             <View style={styles.userBox}>
-                <Image source={require('../../img/User.png')}
+                <Image source={require('../../img/UserAvatar.png')}
                     style={styles.userIcon} />
                 
                 <View style={styles.userTextBox}>
@@ -42,6 +42,38 @@ function PostsScreen({ navigation }) {
                     <Text style={styles.userMail}>email@example.com</Text>
                 </View>
             
+            </View>
+
+            <View style={styles.toolbarBox}>
+                <TouchableOpacity
+                    style={styles.toolbar}
+                    onPress={onLogOutBtnClk}
+                    activeOpacity={0.7}>
+                    
+                    <Image source={require('../../img/grid.png')}
+                        style={styles.toolbarIcon} />
+                    
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.toolbar}
+                    onPress={onLogOutBtnClk}
+                    activeOpacity={0.7}>
+                    
+                    <Image source={require('../../img/new.png')}
+                        style={styles.toolbarIcon} />
+                    
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.toolbar}
+                    onPress={onLogOutBtnClk}
+                    activeOpacity={0.7}>
+                    
+                    <Image source={require('../../img/user.png')}
+                        style={styles.toolbarIconUser} />
+                    
+                </TouchableOpacity>
             </View>
 
         </View>
@@ -91,10 +123,6 @@ const styles = StyleSheet.create({
         marginTop: 32,
     },
 
-    userIcon: {
-    
-    },
-
     userTextBox: {
         flexDirection: 'column', 
         marginLeft: 8,
@@ -114,6 +142,29 @@ const styles = StyleSheet.create({
         lineHeight: 13,
         color: 'rgba(33, 33, 33, 0.8)',
     },
+
+    toolbarBox: {
+        position: "absolute",
+        left: 16,
+        bottom: 0,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center', 
+        paddingHorizontal: 60,
+        paddingTop: 9,
+        paddingBottom: 34,
+        borderTopWidth: 1,
+        borderColor: "rgba(0, 0, 0, 0.3)",
+    },
+
+    toolbarIcon: {
+        marginRight: 31,
+        
+    },
+
+    toolbarIconUser: {
+        marginRight: 0,
+    }
 
 });
 
