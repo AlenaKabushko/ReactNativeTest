@@ -16,7 +16,11 @@ import { useEffect, useState } from 'react';
 
 
 function MapScreen() {
-    return (<View></View>)
+    return (<View>
+        <Text>
+            Map
+        </Text>
+    </View>)
 }
 
 export default MapScreen;

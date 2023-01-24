@@ -1,4 +1,8 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+
+import { createStackNavigator } from "@react-navigation/stack";
 import {
     Image,    
 } from "react-native";
@@ -6,11 +10,14 @@ import {
 import PostsScreen from "../PostsScreen/PostsScreen";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
+// import CommentsScreen from "../CommentsScreen/CommentsScreen";
 
 const Tabs = createBottomTabNavigator();
+const MainStack = createStackNavigator();
 
 function Home() {
-    return (
+  return (
+
         <Tabs.Navigator screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused, color, size }) => {
@@ -31,7 +38,8 @@ function Home() {
             <Tabs.Screen name="Posts" component={PostsScreen} />
             <Tabs.Screen name="Create" component={CreatePostsScreen} />
             <Tabs.Screen name="Profile" component={ProfileScreen} />
-        </Tabs.Navigator>
+      </Tabs.Navigator>
+
     )
 }
 

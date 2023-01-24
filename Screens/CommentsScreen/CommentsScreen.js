@@ -15,7 +15,11 @@ import {
 import { useEffect, useState } from 'react';
 
 function CommentsScreen() {
-    return (<View></View>)
+    return (<View>
+        <Text>
+            comments
+        </Text>
+    </View>)
 }
 
 export default CommentsScreen;
