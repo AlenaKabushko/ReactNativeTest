@@ -40,7 +40,7 @@ const POSTS = [
 function ProfileScreen({ navigation }) {
     const [posts, setPosts] = useState(POSTS);
 
-    const likes = () => Alert.alert('Like!')
+    const likes = () => Alert.alert("Like!");
 
     return (
         <SafeAreaView style={styles.container}>
@@ -58,61 +58,81 @@ function ProfileScreen({ navigation }) {
                 renderItem={({ item }) => (
                     <>
                         <Image
-                            source={(item.img)}
+                            source={item.img}
                             style={styles.flatList}
                         />
                         <Text style={styles.text}>
                             {item.text}
                         </Text>
 
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigation.navigate(
-                                    "CommentsScreen"
-                                )
-                            }
-                        >
-                            <Image
-                                source={require("../../img/message-circle.png")}
-                                style={styles.buttonsIcon}
-                            />
-                            <Text style={styles.text}>
-                                {item.comments}
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={likes}
-                        >
-                            <Image
-                                source={require("../../img/thumbs-up.png")}
-                                style={styles.buttonsIcon}
-                            />
-                            <Text style={styles.text}>
-                                {item.likes}
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigation.navigate(
-                                    "MapScreen"
-                                )
-                            }
-                        >
-                            <Image
-                                source={require("../../img/map-pin.png")}
-                                style={styles.buttonsIcon}
-                            />
-                            <Text
-                                style={styles.location}
+                        <View style={styles.icons}>
+                            <TouchableOpacity
                                 onPress={() =>
-                                    "RegistrationScreen"
+                                    navigation.navigate(
+                                        "CommentsScreen"
+                                    )
                                 }
                             >
-                                {item.locat}
-                            </Text>
-                        </TouchableOpacity>
+                                <View style={styles.btnBox}>
+                                    <Image
+                                        source={require("../../img/message-circle.png")}
+                                        style={
+                                            styles.buttonsIcon
+                                        }
+                                    />
+                                    <Text
+                                        style={styles.text}
+                                    >
+                                        {item.comments}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={likes}
+                            >
+                                <View style={styles.btnBox}>
+                                    <Image
+                                        source={require("../../img/thumbs-up.png")}
+                                        style={
+                                            styles.buttonsIcon
+                                        }
+                                    />
+                                    <Text
+                                        style={styles.text}
+                                    >
+                                        {item.likes}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.navigate(
+                                        "MapScreen"
+                                    )
+                                }
+                            >
+                                <View style={styles.btnBox}>
+                                    <Image
+                                        source={require("../../img/map-pin.png")}
+                                        style={
+                                            styles.buttonsIcon
+                                        }
+                                    />
+                                    <Text
+                                        style={
+                                            styles.location
+                                        }
+                                        onPress={() =>
+                                            "RegistrationScreen"
+                                        }
+                                    >
+                                        {item.locat}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </>
                 )}
                 keyExtractor={(item) => item.id}
@@ -157,6 +177,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 
+    icons: {
+        flex: 1,
+        flexDirection: "row",
+        // alignItems: 'center',
+        justifyContent: "space-between",
+    },
+
     text: {
         marginBottom: 8,
         fontFamily: "Roboto-Medium",
@@ -172,6 +199,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 19,
         color: "#212121",
+    },
+
+    btnBox: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
     },
 });
 
