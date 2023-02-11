@@ -13,6 +13,7 @@ import { useState } from "react";
 const POSTS = [
     {
         id: "1",
+        img: require("../../img/post1.png"),
         locat: "Україна",
         text: "Ліс",
         comments: "8",
@@ -20,6 +21,7 @@ const POSTS = [
     },
     {
         id: "2",
+        img: require("../../img/post2.png"),
         locat: "Україна",
         text: "Захід сонця на Чорному морі",
         comments: "3",
@@ -27,6 +29,7 @@ const POSTS = [
     },
     {
         id: "3",
+        img: require("../../img/post3.png"),
         locat: "Італія",
         text: "Старий будиночок у Венеції",
         comments: "50",
@@ -55,7 +58,7 @@ function ProfileScreen({ navigation }) {
                 renderItem={({ item }) => (
                     <>
                         <Image
-                            source={require("../../img/post2.png")}
+                            source={(item.img)}
                             style={styles.flatList}
                         />
                         <Text style={styles.text}>
