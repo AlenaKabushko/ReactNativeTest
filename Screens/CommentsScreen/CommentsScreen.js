@@ -5,15 +5,11 @@ import {
     Image,
     TextInput,
     Alert,
-    Platform,
-    KeyboardAvoidingView,
-    Keyboard,
-    TouchableWithoutFeedback,
     TouchableOpacity,
     FlatList,
     SafeAreaView,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const COMMENTS = [
     {
@@ -54,45 +50,57 @@ function CommentsScreen() {
                 data={comments}
                 renderItem={({ item }) => (
                     <>
-                        <View>
+                        <View
+                            style={styles.commentContainer}
+                        >
                             <Image source={item.img} />
-                            <Text>{item.text}</Text>
-                            <Text>{item.date}</Text>
+                            <View
+                                style={styles.textContainer}
+                            >
+                                <Text style={styles.text}>
+                                    {item.text}
+                                </Text>
+                                <Text style={styles.date}>
+                                    {item.date}
+                                </Text>
+                            </View>
                         </View>
                     </>
                 )}
                 keyExtractor={(item) => item.id}
             />
 
-            <TextInput
-                style={[
-                    styles.inputLog,
-                    isFocusMail && styles.inputFocusMail,
-                ]}
-                placeholder="Comment"
-                placeholderTextColor={"#BDBDBD"}
-                value={commentData}
-                onFocus={() => {
-                    setIsFocusMail(true);
-                }}
-                onBlur={() => {
-                    setIsFocusMail(false);
-                }}
-                onChangeText={(value) =>
-                    setCommentData(value)
-                }
-            />
-
-            <TouchableOpacity
-                style={styles.btnAdd}
-                onPress={onAddBtnClk}
-                activeOpacity={0.7}
-            >
-                <Image
-                    source={require("../../img/send.png")}
-                    style={styles.btnAddText}
+            <View>
+                <TextInput
+                    style={[
+                        styles.inputLog,
+                        isFocusMail &&
+                            styles.inputFocusMail,
+                    ]}
+                    placeholder="Comment"
+                    placeholderTextColor={"#BDBDBD"}
+                    value={commentData}
+                    onFocus={() => {
+                        setIsFocusMail(true);
+                    }}
+                    onBlur={() => {
+                        setIsFocusMail(false);
+                    }}
+                    onChangeText={(value) =>
+                        setCommentData(value)
+                    }
                 />
-            </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.btnAdd}
+                    onPress={onAddBtnClk}
+                    activeOpacity={0.7}
+                >
+                    <Image
+                        source={require("../../img/send.png")}
+                    />
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -104,8 +112,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#ffffff",
     },
+
     inputLog: {
+        position: "relative",
         height: 50,
+        width: 300,
         padding: 16,
         marginBottom: 16,
         fontFamily: "Roboto-Regular",
@@ -120,6 +131,40 @@ const styles = StyleSheet.create({
 
     inputFocusMail: {
         borderColor: "#FF6C00",
+    },
+    btnAdd: {
+        zIndex: 3,
+        position: "absolute",
+        right: 8,
+        top: 8,
+    },
+
+    commentContainer: {
+        flex: 1,
+        flexDirection: "row",
+        marginTop: 32,
+        marginHorizontal: 16,
+    },
+
+    textContainer: {
+        marginLeft: 32,
+        width: 250,
+    },
+
+    text: {
+        marginBottom: 8,
+        fontFamily: "Roboto-Regular",
+        fontSize: 13,
+        lineHeight: 18,
+        color: "#212121",
+    },
+
+    date: {
+        fontFamily: "Roboto-Regular",
+        fontSize: 10,
+        lineHeight: 12,
+        color: "#BDBDBD",
+        textAlign: "right",
     },
 });
 
