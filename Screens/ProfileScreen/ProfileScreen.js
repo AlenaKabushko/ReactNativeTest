@@ -40,6 +40,10 @@ const POSTS = [
 function ProfileScreen({ navigation }) {
     const [posts, setPosts] = useState(POSTS);
 
+    const onLogOutBtnClk = () => {
+        Alert.alert(`Bye!`);
+    };
+
     const likes = () => Alert.alert("Like!");
 
     return (
@@ -52,6 +56,17 @@ function ProfileScreen({ navigation }) {
             <Text style={styles.title}>
                 Natali Romanova
             </Text>
+
+            <TouchableOpacity
+                style={styles.btnLogOut}
+                onPress={onLogOutBtnClk}
+                activeOpacity={0.7}
+            >
+                <Image
+                    source={require("../../img/log-out.png")}
+                    style={styles.btnLogOutIcon}
+                />
+            </TouchableOpacity>
 
             <FlatList
                 data={posts}
@@ -180,7 +195,6 @@ const styles = StyleSheet.create({
     icons: {
         flex: 1,
         flexDirection: "row",
-        // alignItems: 'center',
         justifyContent: "space-between",
     },
 
@@ -206,6 +220,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "flex-start",
         justifyContent: "space-between",
+    },
+
+    btnLogOut: {
+        position: "absolute",
+        right: 16,
+        top: 22,
     },
 });
 

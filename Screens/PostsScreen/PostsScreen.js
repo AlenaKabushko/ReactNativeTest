@@ -4,40 +4,48 @@ import {
     View,
     Image,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
 } from "react-native";
 
 function PostsScreen() {
     const onLogOutBtnClk = () => {
-        Alert.alert(`Do something!`)
-    }
+        Alert.alert(`Bye!`);
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Публикації</Text>
-            
+
                 <TouchableOpacity
                     style={styles.btnLogOut}
                     onPress={onLogOutBtnClk}
-                    activeOpacity={0.7}>                    
-                    <Image source={require('../../img/log-out.png')}
-                        style={styles.btnLogOutIcon} />                    
+                    activeOpacity={0.7}
+                >
+                    <Image
+                        source={require("../../img/log-out.png")}
+                        style={styles.btnLogOutIcon}
+                    />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.userBox}>
-                <Image source={require('../../img/UserAvatar.png')}
-                    style={styles.userIcon} />
-                
+                <Image
+                    source={require("../../img/UserAvatar.png")}
+                    style={styles.userIcon}
+                />
+
                 <View style={styles.userTextBox}>
-                    <Text style={styles.userName}>Natali Romanova</Text>
-                    <Text style={styles.userMail}>email@example.com</Text>
+                    <Text style={styles.userName}>
+                        Natali Romanova
+                    </Text>
+                    <Text style={styles.userMail}>
+                        email@example.com
+                    </Text>
                 </View>
-            
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -64,12 +72,12 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontFamily: 'Roboto-Medium',
+        fontFamily: "Roboto-Medium",
         fontSize: 17,
         lineHeight: 22,
-        textAlign: 'center',
+        textAlign: "center",
         letterSpacing: -0.408,
-        color: '#212121',
+        color: "#212121",
     },
 
     btnLogOutIcon: {
@@ -78,30 +86,29 @@ const styles = StyleSheet.create({
     },
 
     userBox: {
-        flexDirection: 'row',
+        flexDirection: "row",
         marginTop: 32,
     },
 
     userTextBox: {
-        flexDirection: 'column', 
+        flexDirection: "column",
         marginLeft: 8,
         justifyContent: "center",
     },
 
     userName: {
-        fontFamily: 'Roboto-Medium',
+        fontFamily: "Roboto-Medium",
         fontSize: 13,
         lineHeight: 15,
-        color: '#212121',
+        color: "#212121",
     },
 
     userMail: {
-        fontFamily: 'Roboto-Regular',
+        fontFamily: "Roboto-Regular",
         fontSize: 11,
         lineHeight: 13,
-        color: 'rgba(33, 33, 33, 0.8)',
+        color: "rgba(33, 33, 33, 0.8)",
     },
-
 });
 
 export default PostsScreen;
